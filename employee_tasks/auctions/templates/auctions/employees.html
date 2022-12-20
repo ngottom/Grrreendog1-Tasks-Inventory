@@ -20,7 +20,7 @@
         <div class="row">
          {% for employee in activeEmployees %}
         
-        <div class="card border-light mb-3 text-center" style="max-width: 25%; height:25%;">
+        <div class="card border-light mb-3 text-center">
             <img style="margin-left:auto;margin-right:auto" class="card-img-top" src="{{employee.imageURL}}" alt="{{employee.employeeName}}>
             <div class="card-body">
                 
@@ -30,7 +30,7 @@
                 <button type="button" class="btn btn-info"><a href="{% url 'employeePage' phone=employee.phone %}" style="color:white">Go to Page</a></button>
 
             </div>  
-           <br>
+           
     {% endfor %}
 </div>
 {% endblock %}  

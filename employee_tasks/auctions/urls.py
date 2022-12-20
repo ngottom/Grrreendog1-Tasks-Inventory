@@ -1,5 +1,5 @@
 from django.urls import path
-
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from . import views
 
 urlpatterns = [
@@ -23,9 +23,7 @@ urlpatterns = [
     path("displaySection", views.displaySection, name="displaySection"),
     path("createTask", views.createTask, name="createTask"),
     path("addEmployeeComment/<int:phone>", views.addEmployeeComment, name="addEmployeeComment"),
-    
-
-
-
+    path("videos", views.videos, name="videos"),
 
 ]
+urlpatterns += staticfiles_urlpatterns()

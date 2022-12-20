@@ -337,3 +337,8 @@ def addEmployeeComment(request, phone):
 #     return render(request, id, {
 #         "ordered": ordered
 #     })
+
+def videos(request):
+    return render(request, "auctions/videos.html", {
+        
+    })
