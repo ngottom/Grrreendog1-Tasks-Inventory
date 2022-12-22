@@ -17,7 +17,7 @@
     
 
     </div>
-{% for video in videos %}
+{% for video in sortedVideos %}
 <iframe width="503" height="894" src="{{video.videoLink}}" title="{{video.videoTitle}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 {% endfor %}
 

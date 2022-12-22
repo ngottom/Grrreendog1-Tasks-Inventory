@@ -24,6 +24,8 @@ urlpatterns = [
     path("createTask", views.createTask, name="createTask"),
     path("addEmployeeComment/<int:phone>", views.addEmployeeComment, name="addEmployeeComment"),
     path("videos", views.videos, name="videos"),
+    path("displayVideoSection", views.displayVideoSection, name="displayVideoSection"),
+    path("uploadVideo", views.uploadVideo, name="uploadVideo")
 
 ]
 urlpatterns += staticfiles_urlpatterns()

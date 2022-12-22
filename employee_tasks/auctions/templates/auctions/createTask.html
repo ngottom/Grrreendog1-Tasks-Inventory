@@ -41,17 +41,56 @@ html {
         // load button dataset into text area
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('button.task').forEach(button =>
+            button.style.backgroundColor = "white"
+            )
+        })
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('button.task').forEach(button =>
                 button.onclick = () => {
                         // document.querySelector("#tasks").replace(btnText,'');
                         // button.style.backgroundColor="white";
-                    if (button.style.backgroundColor = "white") {
-                        document.querySelector("#tasks").append(button.dataset.task, ", ");
+                    if (button.style.backgroundColor === "white") {
+                        // document.querySelector("#tasks").append(button.dataset.task, ", ");
+                        document.querySelector("#tasks").value += button.dataset.task + ", ";
                         button.style.backgroundColor="lightGreen";
+                    }
+                    else {
+                        button.style.backgroundColor = "white";
+                        const textarea = document.querySelector('#tasks');
+                        const text = textarea.value;
+                        textarea.value = text.replace(button.dataset.task + ',', '');
                     }
                 }
             )
         })
 
+        document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('button');
+
+    buttons.forEach(button => {
+    const text = button.textContent;
+    button.setAttribute('data-task', text);
+    });
+    })
+
+ function removeTask() {
+    const button = this; // "this" refers to the button that was clicked
+    const task = button.getAttribute('data-task'); // Get the value of the data-task attribute
+    const textarea = document.querySelector('#tasks'); // Get the textarea element
+    const text = textarea.value; // Get the current value of the textarea
+
+    // Replace the task plus a comma with an empty string in the textarea value
+    textarea.value = text.replace(task + ',', '');
+    }
+
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach(button => {
+  button.addEventListener('click', removeTask);
+});
+
+   
 
         
 
@@ -139,6 +178,8 @@ html {
     </div>
 <!-- Select Starting Hour -->
     <div class="form-group">
+        <div style="height:3px;width= 2000px; background-color:green"></div>    
+
         <label for="startHour">Choose Starting Hour:</label>
         <select name="startHour" id="startHour">
             <!-- <option selected>Choose hour</option> -->
@@ -149,14 +190,17 @@ html {
     </div>
 
     <div class="form-group">
-        <label for="startMinute">Choose Minute:</label>
+        <label for="startMinute">Choose Start Minute:</label>
         <select name="startMinute" id="startMinute">
             <!-- <option selected>Choose Minute</option> -->
                 <option value="00">00</option>
                 <option value="30">30</option>
 
       </select>
+      <div style="height:3px;width= 2000px; background-color:green"></div>    
+
     </div>
+
 
         <!-- end -->
 
@@ -195,7 +239,7 @@ html {
      <!-- extraPrice -->
      <div class="form-group ">
       <label class="control-label " for="extrasPrice">
-       Extra Pay
+       Extra Pay $
       </label>
       <input type="number" name="extrasPrice" class="form-control" id="extrasPrice" placeholder="Enter price"
             min = 0 step="1" value=0>
@@ -230,13 +274,34 @@ html {
 
     <div class="side-bar">
         <h1 style="text-align:center;color:rgb(251, 150, 25)">Daycare</h1><br>
-        <button class="task" data-task="Sanitize Tables">Mopping Daycare</button>
-        <button class="task" data-task="Sanitize Tables">Sweeping Daycare</button>
-        <button class="task" data-task="Sanitize Tables">Sanitize Daycare</button>
-
-        
-
+        <button class="task" data-task="Mopping Daycare">Mopping Daycare</button>
+        <button class="task" data-task="Sweeping Daycare">Sweeping Daycare</button>
+        <button class="task" data-task="Sanitize Daycare">Sanitize Daycare</button>
     </div>
+    <div class="side-bar">
+        <h1 style="text-align:center;color:rgb(251, 150, 25)">Kitchen</h1><br>
+        <button class="task" data-task="">Refrigerator Wiped Down</button>
+        <button class="task" data-task="">Microwave</button>
+        <button class="task" data-task="">Dog Crates When Used</button>
+        <button class="task" data-task="">Rugs for Naps</button>
+        <button class="task" data-task="">Corals</button>
+        <button class="task" data-task="">Rug In Front of Sink</button>
+        <button class="task" data-task="">Cabinets</button>
+        <button class="task" data-task="">Dog Crates(when used)</button>
+        <button class="task" data-task="">Rugs for Maps</button>
+        <button class="task" data-task="">Corals</button>
+        <button class="task" data-task="">Rug In Front of Sink</button>
+</div>
+
+<div class="side-bar" style="right:0">
+    <h1 style="text-align:center;color:rgb(251, 150, 25)">Daily</h1><br>
+    <button class="task" data-task="">All Dishes</button>
+    <button class="task" data-task="">Sink</button>
+    <button class="task" data-task="">Counter Top</button>
+    <button class="task" data-task="">Sweep Floor</button>
+    <button class="task" data-task="">Mop Floor</button>
+    <button class="task" data-task="">Kitchen Table</button>
+    
 </div>
 
 

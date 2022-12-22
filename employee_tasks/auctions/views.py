@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, Category, Listing, Comment, Employee, EmployeeListing, Section, employeeComment
+from .models import User, Category, Listing, Comment, Employee, EmployeeListing, Section, employeeComment, VideoSection, Video
 
 import datetime
 
@@ -252,6 +252,7 @@ def employeePage(request, phone):
     # sortedEmployeeTasks = employeeTasks.sort(key=lambda y : y.startYear)
     # print(sortedEmployeeTasks)
     comments = employeeComment.objects.filter(employee=employee)
+    comments = comments.order_by('-id')[:10:1]
 
     return render(request, "auctions/employeePage.html", {
         "employeeData": employeeData,
@@ -339,6 +340,42 @@ def addEmployeeComment(request, phone):
 #     })
 
 def videos(request):
+    videoSections = VideoSection.objects.all()
+    videos = Video.objects.all()
     return render(request, "auctions/videos.html", {
+    "videoSections":videoSections,
+    "videos":videos,
+    })
+
+def displayVideoSection(request):
+    videoSections = VideoSection.objects.all()
+    if request.method == "POST":
+        sections = VideoSection.objects.all()
+        sectionFromForm = request.POST['videoSection']
+        print(sectionFromForm)
+        selectedVideoSection = VideoSection.objects.get(videoSection=sectionFromForm)
+        print(selectedVideoSection)
+        sortedVideos = Video.objects.filter(videoSection=selectedVideoSection)
+        print(sortedVideos)
+    return render(request, "auctions/displayVideoSection.html", {
+    "videoSections":videoSections,
+    "sortedVideos": sortedVideos,
+        
+    })
+def uploadVideo(request):
+    sections = VideoSection.objects.all()
+    if request.method == "POST":
+        sectionFromForm = request.POST['section']
+        titleFromForm = request.POST['title']
+        embedLink = request.POST['embedLink']
+
+        createVideo = Video(VideoSection=sectionFromForm,
+        videoTitle = videoTitle,
+        videoLink = embedLink,
+        )
+        createVideo.save()
+    
+    return render(request, "auctions/uploadVideo.html", {
+    "sections":sections,
         
     })

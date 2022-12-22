@@ -1,5 +1,5 @@
 html {
-    /* padding: 20px; */
+    /* margin: .1vh;
     font-family: Arial, Helvetica, sans-serif;  
     /* background-color: rgb(162, 236, 162); */
     
@@ -12,10 +12,11 @@ img.card-img-top {
 }
 
 .card{
-    margin:1.5vh;
+    /* margin:1.5vh; */
     /* /* border:2px !important; not working */
     /* border:1px !important! */
     /* border-color:black !important; */
+    border-color:blue;  
 }
 
 img.listPage{
@@ -33,7 +34,7 @@ h3.description{
 }
 
 #nav-bar{
-    
+    margin:0;
 }
 
 .center{

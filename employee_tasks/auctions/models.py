@@ -51,6 +51,9 @@ class Listing(models.Model):
     watchlist = models.ManyToManyField(
         User, blank=True, null=True, related_name="listingWatchlist")
 
+    def __str__(self):
+        return self.title
+
 
 class EmployeeListing(models.Model):
     employee = models.ForeignKey(
@@ -123,6 +126,20 @@ class employeeComment(models.Model):
     def __str__(self):
         return f"{self.author}: {self.message}"
 
+class VideoSection(models.Model):
+    videoSection = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return f"{self.videoSection}"
+
+class Video(models.Model):
+    videoTitle = models.CharField(max_length=280)
+    videoSection = models.ForeignKey(
+        VideoSection, on_delete=models.CASCADE, blank=True, null=True)
+    videoLink = models.CharField(max_length=200)
+
+    def __str__(self):
+        return f"{self.videoTitle}"
 
 # class Purchase(models.Model):
 #     listing = models.ForeignKey(
