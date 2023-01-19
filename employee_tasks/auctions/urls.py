@@ -25,7 +25,8 @@ urlpatterns = [
     path("addEmployeeComment/<int:phone>", views.addEmployeeComment, name="addEmployeeComment"),
     path("videos", views.videos, name="videos"),
     path("displayVideoSection", views.displayVideoSection, name="displayVideoSection"),
-    path("uploadVideo", views.uploadVideo, name="uploadVideo")
+    path("uploadVideo", views.uploadVideo, name="uploadVideo"),
+    path("dogs", views.dogs,name="dogs"),
 
 ]
 urlpatterns += staticfiles_urlpatterns()

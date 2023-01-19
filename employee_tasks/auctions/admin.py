@@ -12,4 +12,3 @@ admin.site.register(EmployeeListing)
 admin.site.register(employeeComment)
 admin.site.register(VideoSection)
 admin.site.register(Video)
-

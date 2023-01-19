@@ -125,8 +125,9 @@ def createTask(request):
             nextMonth = currentMonth + 1
         print(nextMonth)
         #import Employee and Section objects
-        allEmployees = Employee.objects.all()
+        allEmployees = Employee.objects.filter(isActive=True)
         allSections = Section.objects.all()
+        activeEmployees = Employee.objects.filter(isActive=True)
         return render(request,"auctions/createTask.html",{
             "allEmployees": allEmployees,
             "allSections": allSections,
@@ -378,4 +379,8 @@ def uploadVideo(request):
     return render(request, "auctions/uploadVideo.html", {
     "sections":sections,
         
+    })
+def dogs(request):
+    return render(request, "auctions/dogs.html",{
+
     })
