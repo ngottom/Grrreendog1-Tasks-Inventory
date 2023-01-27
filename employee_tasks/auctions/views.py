@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, Category, Listing, Comment, Employee, EmployeeListing, Section, employeeComment, VideoSection, Video
+from .models import User, Category, Listing, Comment, Employee, EmployeeListing, Section, employeeComment, VideoSection, Video,Timestamp
 
 import datetime
 
@@ -226,16 +226,35 @@ def displaySection(request):
 
 
 def listing(request, id):
+    if request.method == "POST":
+        number = request.POST['number']
+        listingData = Listing.objects.get(pk=id)
+        listingData.count = number
+        listingData.save()
+        currentUser = request.user
+        createTimestamp = Timestamp(
+            author = currentUser,
+            listing = Listing.objects.get(pk=id)
+        )
+        createTimestamp.save()
+        print(listingData.count)
+        print(f"{number}")
     listingData = Listing.objects.get(pk=id)
+    lastTimestamp = Timestamp.objects.filter(listing=listingData).last()
+    print(lastTimestamp)
+    print(lastTimestamp)
+
     isListingInWatchlist = request.user in listingData.watchlist.all()
     comments = Comment.objects.filter(listing=listingData)
     # print(isListingInWatchlist)
     # print(f"listingData, {listingData}")
-    print(f"comments: {comments}")
+    # print(f"comments: {comments}")
+    print(f"lastTimestamp: {lastTimestamp}")
     return render(request, "auctions/listing.html", {
         "listingData": listingData,
         "isListingInWatchlist": isListingInWatchlist,
-        "comments": comments
+        "comments": comments,
+        "lastTimestamp": lastTimestamp
     })
 
 

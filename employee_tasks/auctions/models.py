@@ -50,7 +50,7 @@ class Listing(models.Model):
         Category, on_delete=models.CASCADE, blank=True, null=True, related_name="category")
     watchlist = models.ManyToManyField(
         User, blank=True, null=True, related_name="listingWatchlist")
-
+    count = models.PositiveIntegerField(default=1)
     def __str__(self):
         return self.title
 
@@ -140,7 +140,13 @@ class Video(models.Model):
 
     def __str__(self):
         return f"{self.videoTitle}"
-
+class Timestamp(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE,  blank=True, null=True, related_name="timestampUser")
+    datetime = models.CharField(
+        max_length=100, default=datetime.now().strftime("%H:%M:%S %m-%d-%Y"))
+    listing = models.ForeignKey(Listing,on_delete=models.CASCADE, blank=True, null=True)
+    def __str__(self):
+        return f"{self.author}, {self.datetime}"
 # class Purchase(models.Model):
 #     listing = models.ForeignKey(
 #         Listing, on_delete=models.CASCADE,  blank=True, null=True, related_name="listingPurchase")
