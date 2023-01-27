@@ -165,7 +165,8 @@ def createTask(request):
             endHour = endHour, 
             endMinute = endMinute,
             extras = extras,
-            extrasPrice = extrasPrice
+            extrasPrice = extrasPrice,
+            author = request.user
         )
         newEmployeeListing.save()
         # Insert object into database
