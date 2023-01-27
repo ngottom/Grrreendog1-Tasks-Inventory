@@ -206,7 +206,7 @@ def displayCategory(request):
         allListings = Listing.objects.all()
         # print(category)
         # print(activeListings)
-        return render(request, "auctions/index.html", {
+        return render(request, "auctions/active.html", {
             "activeListings": activeListings,
             "categories": allCategories,
             "allListings": allListings,

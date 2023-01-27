@@ -24,8 +24,8 @@ class Employee(models.Model):
         Section, on_delete=models.CASCADE, blank=True, null=True, related_name="section")
     isActive = models.BooleanField(default=True)
     imageURL = models.CharField(
-        # max_length=500, default="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/800px-Question_mark_%28black%29.svg.png")
-        max_length=500, default="/auctions/templates/auctions/images/qMark.png")
+        max_length=500, default="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/800px-Question_mark_%28black%29.svg.png")
+        # max_length=500, default="/auctions/templates/auctions/images/qMark.png")
 
     def __str__(self):
         return str(self.employeeName)
@@ -40,9 +40,9 @@ class Category(models.Model):
 
 class Listing(models.Model):
     title = models.CharField(max_length=300)
-    description = models.CharField(max_length=1000)
-    imageURL = models.CharField(max_length=1000)
-    price = models.FloatField(default=None)
+    description = models.CharField(max_length=1000, default="supply")
+    imageURL = models.CharField(max_length=500, default="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/800px-Question_mark_%28black%29.svg.png")
+    price = models.FloatField(default=0)
     isActive = models.BooleanField(default=True)
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE,  blank=True, null=True, related_name="user")
