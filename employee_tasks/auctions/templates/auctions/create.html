@@ -14,16 +14,16 @@
         </div>        
         <div class="mb-3">
             <label for="imageURL" class="form-label">ImageURL</label>
-            <input type="text" name="imageURL" class="form-control" id="imageURL" placeholder="Enter imageURL">
+            <input type="text" name="imageURL" class="form-control" id="imageURL" placeholder="https://...">
         </div>        
-        <div class="mb-3">
+        <!-- <div class="mb-3">
             <label for="price" class="form-label">Price</label>
             <input type="number" name="price" class="form-control" id="price" placeholder="Enter price"
             min = 1 step=".01">
-        </div>        
+        </div>         -->
 
         <div class="form-group">
-            <label for="category">Choose a item type:</label>
+            <label for="category">Choose an item type:</label>
             <select name="category" id="category">
                 <option selected>Choose category</option>
                 {% for category in categories %}

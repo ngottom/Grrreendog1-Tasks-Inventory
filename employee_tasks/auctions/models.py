@@ -45,7 +45,7 @@ class Listing(models.Model):
     price = models.FloatField(default=0)
     isActive = models.BooleanField(default=True)
     owner = models.ForeignKey(
-        User, on_delete=models.CASCADE,  blank=True, null=True, related_name="user")
+        User, on_delete=models.CASCADE, blank=True, null=True, related_name="user")
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, blank=True, null=True, related_name="category")
     watchlist = models.ManyToManyField(
@@ -112,7 +112,7 @@ class Comment(models.Model):
         Listing, on_delete=models.CASCADE,  blank=True, null=True, related_name="listingComment")
     message = models.CharField(max_length=200)
     datetime = models.CharField(
-        max_length=100, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        max_length=100, default=datetime.now().strftime("%m-%d-%Y %H:%M:%S"))
 
     def __str__(self):
         return f"{self.author} about {self.listing}: {self.message}"

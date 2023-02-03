@@ -105,12 +105,12 @@
     
 
 <hr></hr>
-    <h2>Comments</h2>
+    <h2>Report Events</h2>
     {% if user.is_authenticated %}
     
     <form action = "{% url 'addEmployeeComment' phone=employeeData.phone %}" method="POST">
         {% csrf_token %}
-        <input type="textarea" name="newComment" placeholder="Add new comment">
+        <input type="textarea" style="width:50vh; height:6vh" name="newComment" placeholder="Summary">
         <button type="submit" class="btn btn-warning">Submit</button>     
     </form>
     {% endif %}

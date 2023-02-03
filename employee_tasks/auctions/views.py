@@ -94,7 +94,9 @@ def createListing(request):
         description = request.POST["description"]
 
         imageURL = request.POST["imageURL"]
-        price = request.POST["price"]
+        if imageURL == "":
+            imageURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/800px-Question_mark_%28black%29.svg.png"
+        # price = request.POST["price"]
         category = request.POST["category"]
         # who is the user
         currentUser = request.user
@@ -105,10 +107,12 @@ def createListing(request):
             title=title,
             description=description,
             imageURL=imageURL,
-            price=float(price),
+            # price=float(price),
             category=categoryData,
             owner=currentUser
         )
+        newListing.save()
+        return HttpResponseRedirect(reverse("active"))
 def createTask(request):
     
     #Load Employees, Sections
@@ -281,7 +285,13 @@ def employeePage(request, phone):
          "comments": comments,
     })
 
+def allComments(request):
+    comments = employeeComment.objects
+    comments = comments.order_by('-id')[:20:1]
 
+    return render(request,"auctions/allComments.html",{
+        "comments": comments
+    })
 def removeWatchlist(request, id):
     listingData = Listing.objects.get(pk=id)
     currentUser = request.user
@@ -350,6 +360,7 @@ def addEmployeeComment(request, phone):
     createComment.save()
 
     return HttpResponseRedirect(reverse("employeePage", args=(phone, )))
+
 
 
 # def purchases(request):
