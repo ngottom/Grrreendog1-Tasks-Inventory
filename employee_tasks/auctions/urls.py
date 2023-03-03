@@ -27,7 +27,16 @@ urlpatterns = [
     path("displayVideoSection", views.displayVideoSection, name="displayVideoSection"),
     path("uploadVideo", views.uploadVideo, name="uploadVideo"),
     path("dogs", views.dogs,name="dogs"),
-    path("allComments", views.allComments, name="allComments")
+    path("employeeComments", views.employeeComments, name="employeeComments"),
+    path("sortNotices", views.sortNotices, name="sortNotices"),
+    path("inventoryComments", views.inventoryComments, name="inventoryComments"),
+    path("sortedInventory", views.sortedInventory, name="sortedInventory"),
+    path("emptyListings", views.emptyListings, name="emptyListings"),
+    path("sortNotices", views.sortNotices, name="sortNotices"),
+    path("todayInventoryComments", views.todayInventoryComments, name="todayInventoryComments"),
+    path("todayEmployeeComments", views.todayEmployeeComments, name="todayEmployeeComments"),
+
+
 
 ]
 urlpatterns += staticfiles_urlpatterns()

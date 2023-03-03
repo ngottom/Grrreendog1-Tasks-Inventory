@@ -111,8 +111,8 @@ class Comment(models.Model):
     listing = models.ForeignKey(
         Listing, on_delete=models.CASCADE,  blank=True, null=True, related_name="listingComment")
     message = models.CharField(max_length=200)
-    datetime = models.CharField(
-        max_length=100, default=datetime.now().strftime("%m-%d-%Y %H:%M:%S"))
+    datetime = models.DateTimeField(
+        max_length=100, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
     def __str__(self):
         return f"{self.author} about {self.listing}: {self.message}"
@@ -123,7 +123,7 @@ class employeeComment(models.Model):
     employee = models.ForeignKey(
         Employee, on_delete=models.CASCADE,  blank=True, null=True, related_name="commentEmployee")
     message = models.CharField(max_length=1000)
-    datetime = models.CharField(
+    datetime = models.DateTimeField(
         max_length=100, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
     def __str__(self):
@@ -150,6 +150,36 @@ class Timestamp(models.Model):
     listing = models.ForeignKey(Listing,on_delete=models.CASCADE, blank=True, null=True)
     def __str__(self):
         return f"{self.author}, {self.datetime}"
+    
+class Rooms(models.Model):
+    room = models.CharField(max_length=200, blank=True, null = True)   
+    def __str__(self):
+        return self.sectionName 
+
+class Dog(models.Model):
+    dogName = models.CharField(max_length=200)
+    owner = models.CharField(max_length=200)
+    phone = models.IntegerField()
+    breed = models.CharField(
+        max_length=200)
+    isActive = models.BooleanField(default=False)
+    imageURL = models.CharField(
+        max_length=500, default="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/800px-Question_mark_%28black%29.svg.png")
+        # max_length=500, default="/auctions/templates/auctions/images/qMark.png")
+
+    def __str__(self):
+        return str(self.dogName)
+    
+class dogListing(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE,  blank=True, null=True, related_name="dogAuthor")
+    datetime = models.CharField(
+        max_length=100, default=datetime.now().strftime("%H:%M:%S %m-%d-%Y"))
+    dog = models.ForeignKey(Dog, on_delete = models.CASCADE, max_length = 100, blank = True, null = True,)
+    room = models.ForeignKey(Rooms, on_delete=models.CASCADE,  blank=True, null=True, related_name="roomName")
+    
+    def __str__(self): 
+        return str(self.dog)
+
 # class Purchase(models.Model):
 #     listing = models.ForeignKey(
 #         Listing, on_delete=models.CASCADE,  blank=True, null=True, related_name="listingPurchase")

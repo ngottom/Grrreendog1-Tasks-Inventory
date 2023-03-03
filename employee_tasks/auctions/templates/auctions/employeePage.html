@@ -105,21 +105,22 @@
     
 
 <hr></hr>
-    <h2>Report Events</h2>
+    <h2>Report Problem</h2>
     {% if user.is_authenticated %}
     
     <form action = "{% url 'addEmployeeComment' phone=employeeData.phone %}" method="POST">
         {% csrf_token %}
-        <input type="textarea" style="width:50vh; height:6vh" name="newComment" placeholder="Summary">
+        <input type="textarea" style="width:50vh; height:6vh" name="newComment" placeholder="Add new comment">
         <button type="submit" class="btn btn-warning">Submit</button>     
     </form>
     {% endif %}
 </div> 
 <div>
     {% for comment in comments %}
+    <p><i><br>{{comment.datetime}} EST</p></i>
+
     <li class="list-group-item"> {{comment.message}} 
-    <br><p>posted by <strong>{{comment.author}}</strong></p>
-    <br>{{comment.datetime}} EST
+    <br><ul><i>posted by <strong style="color:green">{{comment.author}}</strong></ul></i>
     </li>
      
     {% endfor %}

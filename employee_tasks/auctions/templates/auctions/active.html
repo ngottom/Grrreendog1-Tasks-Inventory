@@ -23,6 +23,11 @@
             <button type="submit" class="btn btn-warning">Check Category</button>
         </form>
         <button type="button" class="btn btn-info"><a href="active" style="color:white">Reset listings</a></button>
+        <button type="submit" class="btn btn-success"><a href="create" style="color:white;">Create Listing</a></button>
+
+        <br>
+        <label for="emptyListings">Show Unstocked Inventory:</label>
+        <button type="submit" style="margin-left: 3.5vh" class="btn btn-danger"><a href="emptyListings" style="color:white;">Empty Inventory</a></button>
 
         </div>
         <div class="row">
@@ -33,7 +38,7 @@
             <div class="card-body">
                 
               <p class="card-text"><h1 style="color:rgb(0, 200, 255)">{{listing}}</h1><br>
-                {{listing.description}} , ${{listing.price}}</p>
+                <i>{{listing.category}}</i> Count:{{listing.count}}</p>
                 <button type="button" class="btn btn-info"><a href="{% url 'listing' id=listing.id %}" style="color:white">Go to Page</a></button>
 
             </div>  
@@ -41,5 +46,7 @@
     {% endfor %}
 </div>
 </div>
+
+<button type="submit" class="btn btn-success"><a href="create" style="color:white;">Create Listing</a></button>
 <!-- testing adding static here -->
 {% endblock %}  

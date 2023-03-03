@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, Category, Listing, Comment, Employee, EmployeeListing, Section, employeeComment, VideoSection, Video,Timestamp
+from .models import User, Category, Listing, Comment, Employee, EmployeeListing, Section, employeeComment, VideoSection, Video,Timestamp, Rooms, Dog, dogListing
 
 import datetime
 
@@ -215,6 +215,14 @@ def displayCategory(request):
             "categories": allCategories,
             "allListings": allListings,
         })
+    
+def emptyListings(request):
+        activeListings = Listing.objects.filter(count=0)
+        categories = Category.objects.all()
+        return render(request,"auctions/emptyListings.html",{
+            "activeListings": activeListings,
+            "categories": categories
+        })
 def displaySection(request):
     if request.method == "POST":
         sectionFromForm = request.POST['section']
@@ -228,7 +236,6 @@ def displaySection(request):
             "sections": allSections,
             "allEmployees": allEmployees,
         })
-
 
 def listing(request, id):
     if request.method == "POST":
@@ -270,7 +277,7 @@ def employeePage(request, phone):
     print(f"UNORDERED {employeeTasks}")
     # employeeTasks = employeeTasks.order_by('id')[:6][::-1]
     # employeeTasks = reversed(employeeTasks)
-    employeeTasks = employeeTasks.order_by('-id')[:7:1]
+    employeeTasks = employeeTasks.order_by('-id')[:5:1]
     # use [:5:1] for the reverse order in our case
     print(f"EMPLOYEETASKS {employeeTasks}")
     # print(f"employee Tasks REVERSED {reverseEmployeeTasks}")
@@ -285,12 +292,115 @@ def employeePage(request, phone):
          "comments": comments,
     })
 
-def allComments(request):
+def employeeComments(request):
     comments = employeeComment.objects
-    comments = comments.order_by('-id')[:20:1]
+    comments = comments.order_by('-id')[:100:1]
+    today = datetime.datetime.now()
+    currentYear = today.year
+    
 
-    return render(request,"auctions/allComments.html",{
-        "comments": comments
+    return render(request,"auctions/employeeComments.html",{
+        "comments": comments,
+            "rangeDays": range(1,32),
+            "rangeHours": range(1,13),
+            "rangeMinutes": range(0,31,30),
+            "rangeMonths": range(1,13),
+            "rangeYears": range(currentYear, currentYear - 3, -1)
+    })
+def sortedInventory(request):
+    if request.method == "POST":
+        month = request.POST['month']
+        day = request.POST['day']
+        year = request.POST['year']
+        today = datetime.datetime.now()
+        currentYear = today.year
+        # category = Category.objects.get(categoryName=categoryFromForm)
+        comments = employeeComment.objects
+        comments = Comment.objects.filter(datetime__month=month, datetime__day=day, datetime__year=year).order_by('datetime')
+        # print(category)
+        # print(activeListings)
+        return render(request, "auctions/sortedInventory.html", {
+            "comments":comments,
+            "rangeDays": range(1,32),
+            "rangeHours": range(1,13),
+            "rangeMinutes": range(0,31,30),
+            "rangeMonths": range(1,12),
+            "rangeYear": range(currentYear, currentYear - 3, -1)
+
+        })
+def todayInventoryComments(request):
+        today = datetime.datetime.now()
+        month = today.month
+        day = today.day
+        year = today.year
+        today = datetime.datetime.now()
+        currentYear = today.year
+        # category = Category.objects.get(categoryName=categoryFromForm)
+        comments = employeeComment.objects
+        comments = Comment.objects.filter(datetime__month=month, datetime__day=day, datetime__year=year).order_by('datetime')
+        # print(category)
+        # print(activeListings)
+        return render(request, "auctions/sortedInventory.html", {
+            "comments":comments,
+            "rangeDays": range(1,32),
+            "rangeHours": range(1,13),
+            "rangeMinutes": range(0,31,30),
+            "rangeMonths": range(1,12),
+            "rangeYear": range(currentYear, currentYear - 3, -1)
+
+        })
+def sortNotices(request):
+    if request.method == "POST":
+        month = request.POST['month']
+        day = request.POST['day']
+        year = request.POST['year']
+        today = datetime.datetime.now()
+        currentYear = today.year
+        # category = Category.objects.get(categoryName=categoryFromForm)
+        comments = employeeComment.objects
+        comments = employeeComment.objects.filter(datetime__month=month, datetime__day=day, datetime__year=year).order_by('datetime')
+        # print(category)
+        # print(activeListings)
+        return render(request, "auctions/sortNotices.html", {
+            "comments":comments,
+            "rangeDays": range(1,32),
+            "rangeHours": range(1,13),
+            "rangeMinutes": range(0,31,30),
+            "rangeMonths": range(1,12),
+            "rangeYears": range(currentYear, currentYear - 6, -1)
+        })
+def todayEmployeeComments(request):
+    today = datetime.datetime.now()
+    month = today.month
+    day = today.day
+    year = today.year
+        # category = Category.objects.get(categoryName=categoryFromForm)
+    comments = employeeComment.objects
+    comments = employeeComment.objects.filter(datetime__month=month, datetime__day=day, datetime__year=year).order_by('datetime')
+        # print(category)
+        # print(activeListings)
+    return render(request, "auctions/todayEmployeeComments.html", {
+        "comments":comments,
+        "rangeDays": range(1,32),
+        "rangeHours": range(1,13),
+        "rangeMinutes": range(0,31,30),
+        "rangeMonths": range(1,12),
+        "rangeYears": range(year, year - 6, -1)
+    })
+def inventoryComments(request):
+    comments = Comment.objects
+    comments = comments.order_by('-id')[:20:1]
+    today = datetime.datetime.now()
+    currentYear = today.year
+    lastYear = currentYear -1
+    return render(request,"auctions/inventoryComments.html",{
+        "comments": comments,
+        "lastYear": lastYear,
+        "rangeDays": range(1,32),
+        "rangeHours": range(1,13),
+        "rangeMinutes": range(0,31,30),
+        "rangeMonths": range(1,13),
+        "rangeYear": range(currentYear, currentYear - 6, -1)
     })
 def removeWatchlist(request, id):
     listingData = Listing.objects.get(pk=id)
